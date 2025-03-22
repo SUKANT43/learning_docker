@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./backend 
+    ports:
+      - "5000:5000" 
+    networks:
+      - "mern-network"
+    depends_on:
+      - mongo  # Ensures MongoDB starts before the backend
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "8000:80"
+    networks:
+      - "mern-network"
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+    networks:
+      - "mern-network"
+
+networks:
+  mern-network:
+    driver: bridge
+
+#docker-compose up running
+
+#docker-compose down stoping
+
